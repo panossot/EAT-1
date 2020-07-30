@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+umask 000
 
 printVariables() {
 	echo "SERVER:        "$SERVER
@@ -156,7 +157,7 @@ else
 fi
 
 #Merge PR
-if [ $EAT_PR != "ALL" ] && [ $EAT_PR != "all" ] && [eat_pr_found!=false]; then
+if [ $EAT_PR != "ALL" ] && [ $EAT_PR != "all" ] && [ $eat_pr_found != false ]; then
 	git fetch origin +refs/pull/$EAT_PR/merge;
 	git checkout FETCH_HEAD;
 	
@@ -168,7 +169,7 @@ fi
 echo "Building..."
 cd $server_path
 
-if [$server_build==true]; then
+if [ $server_build == true ]; then
     mvn clean install -DskipTests
 fi
 
@@ -186,22 +187,23 @@ fi
 cd $eat_path
 
 if [ $EAT_PR == "ALL" ] || [ $EAT_PR == "all" ]; then
+        touch -a checked_PRs.txt
 	#Read file
 	mapfile -t checked_arr < checked_PRs.txt
 	
 	for i in "${eat_arr[@]}"
 	do
-		checked==false
+		checked=false
 		
 		for j in "${checked_arr[@]}"
 		do
 			if [ $i == $j ]; then
-				checked==true
+				checked=true
 				break
 			fi
 		done
 		
-		if [ $checked==true ]; then
+		if [ $checked == true ]; then
 			continue
 		fi
 		
