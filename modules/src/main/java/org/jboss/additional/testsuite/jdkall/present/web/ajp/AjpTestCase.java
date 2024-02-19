@@ -53,7 +53,6 @@ public class AjpTestCase {
 
         // Timeout required - it's in milliseconds
         int timeout = 2000;
-
         ServerLogPatternListener listener = new ServerLogPatternListener(Pattern.compile(".*ERROR.*"));
         Tailer serverLogTailer = new Tailer(SERVER_LOG, listener, 100, true);
         Thread tailerThread = new Thread(serverLogTailer);

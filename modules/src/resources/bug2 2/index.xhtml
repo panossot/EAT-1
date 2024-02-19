@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>My app</title>
+</h:head>
+<h:body>
+	<h:outputText value=""/>
+	<h:form>
+		<h:outputText value="Now: #{index.now}" /><br />
+		<h:commandButton action="#{index.execute()}" value="Submit">
+			<f:ajax execute="@form" render="@form" />
+		</h:commandButton>
+	</h:form>
+</h:body>
+
+</html>
